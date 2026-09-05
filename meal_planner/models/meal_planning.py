@@ -1,5 +1,5 @@
 """Defines ORM models for the meal planning application."""
-from app import db
+from meal_planner.app import db
 
 
 class Recipe(db.Model):

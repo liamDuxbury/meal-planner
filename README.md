@@ -1,5 +1,7 @@
 # Meal Planner
 
+A meal planning application with user authentication, recipe selection, and dietary requirement management.
+
 ## Technology Stack
 
 | Layer | Technology |

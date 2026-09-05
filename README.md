@@ -2,6 +2,25 @@
 
 A meal planning application with user authentication, recipe selection, and dietary requirement management.
 
+## Setup
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+cd meal_planner
+flask run
+```
+
+The app creates its SQLite database automatically on first run, at `instance/meal_planner.db`.
+
+To populate the recipes table with sample data:
+
+```bash
+./scripts/seed_recipes.sh
+```
+
 ## Technology Stack
 
 | Layer | Technology |

@@ -1,0 +1,23 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Meal Planner - Recipes</title>
+    </head>
+    <body>
+        {% block body %} 
+            <div>
+                {% if recipes %}
+                    <h1>Recipes</h1>
+                    {% for recipe in recipes %}
+                        <div class="recipe">
+                            <h2>{{recipe.name}}</h2>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No recipes found.</p>
+                {% endif %}
+            </div>
+        {% endblock %}
+    </body>
+</html>

@@ -1,3 +1,11 @@
 ## Environment
 .venv
 .venv/
+
+## Database
+*.db
+instance/
+
+## Python
+__pycache__/
+*.pyc

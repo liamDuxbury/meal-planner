@@ -1,9 +1,9 @@
+{% extends 'base.html' %}
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Meal Planner - Recipes</title>
-    </head>
+    {% block header %}
+        <h1>{% block title %}Register{% endblock %}</h1>
+    {% endblock %}
+    {% block content %}
     <body>
         {% block body %} 
             <div>
@@ -20,4 +20,5 @@
             </div>
         {% endblock %}
     </body>
+    {% endblock %}
 </html>

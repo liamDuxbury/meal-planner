@@ -11,9 +11,10 @@ pip install -r requirements.txt
 flask run
 ```
 
-To run with hotreloading, run:
+To run with hot reloading, run:
+
 ```bash
-flask  --debug run 
+flask  --debug run
 ```
 
 The app creates its SQLite database automatically on first run, at `instance/meal_planner.db`.
@@ -36,41 +37,44 @@ flask db upgrade                            # apply pending migrations
 Always review the generated file under `migrations/versions/` before running `upgrade`.
 
 To query the SQLite instance directy:
+
 ```bash
 sqlite3 instance/meal_planner.db "SELECT * FROM recipe_cuisines;"
 ```
 
 ## Technology Stack
 
-| Layer | Technology |
-|-------|------------|
-| **Framework** | Flask (Python) |
-| **Frontend** | Jinja2 templating |
-| **Database** | SQLite |
-| **ORM** | SQLAlchemy |
-
+| Layer         | Technology        |
+| ------------- | ----------------- |
+| **Framework** | Flask (Python)    |
+| **Frontend**  | Jinja2 templating |
+| **Database**  | SQLite            |
+| **ORM**       | SQLAlchemy        |
 
 ## Data Model
 
 ### Recipe
-| Field | Type | Notes |
-|-------|------|-------|
-| `id` | Integer | Primary key |
-| `name` | String | Recipe title |
-| `cuisines` | Array/String | Tags (Italian, Asian, etc.) |
+
+| Field                  | Type         | Notes                                |
+| ---------------------- | ------------ | ------------------------------------ |
+| `id`                   | Integer      | Primary key                          |
+| `name`                 | String       | Recipe title                         |
+| `cuisines`             | Array/String | Tags (Italian, Asian, etc.)          |
 | `dietary_requirements` | Array/String | Vegan, vegetarian, gluten-free, etc. |
-| `ingredient_list` | Text/JSON | List of ingredients with quantities |
+| `ingredient_list`      | Text/JSON    | List of ingredients with quantities  |
 
 ### User
-| Field | Type | Notes |
-|-------|------|-------|
-| `id` | Integer | Primary key |
-| `name` | String | User's display name |
-| `password` | String | Encrypted password (bcrypt or similar) |
-| `is_super_admin` | Boolean | Admin privileges flag |
-| `dietary_requirements` | Array/String | User's dietary restrictions |
+
+| Field                  | Type         | Notes                                  |
+| ---------------------- | ------------ | -------------------------------------- |
+| `id`                   | Integer      | Primary key                            |
+| `name`                 | String       | User's display name                    |
+| `password`             | String       | Encrypted password (bcrypt or similar) |
+| `is_super_admin`       | Boolean      | Admin privileges flag                  |
+| `dietary_requirements` | Array/String | User's dietary restrictions            |
 
 ### Meal Plan
+
 | Field        | Type     | Notes                              |
 | ------------ | -------- | ---------------------------------- |
 | `id`         | Integer  | Primary key                        |
@@ -78,12 +82,4 @@ sqlite3 instance/meal_planner.db "SELECT * FROM recipe_cuisines;"
 | `plan_id`    | Integer  | FK to Plan                         |
 | `owner_id`   | Integer  | FK to User                         |
 | `created_at` | DateTime | Timestamp                          |
-### Plan
-| Field        | Type     | Notes        |
-| ------------ | -------- | ------------ |
-| `id`         | Integer  | Primary key  |
-| `recipe_id`  | Integer  | FK to Recipe |
-| `date`       | DateTime | Timestampt   |
-| `owner_id`   | Integer  | FK to User   |
-| `created_at` | DateTime | Timestamp    |
 

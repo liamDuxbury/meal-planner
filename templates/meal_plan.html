@@ -7,6 +7,8 @@
     <body>
         {% block body %}
         <button id="generate-meal-plan">Generate Meal Plan</button>
+        <input type="checkbox" id="override-existing" name="override-existing">
+        <label for="override-existing">Override existing meal plan</label>
         <div id="meal-plan-container">
             {% include '_meal_plan.html' %}
         </div>
@@ -15,7 +17,8 @@
             MealPlanController.init(
                 "{{ url_for('generate_meal_plan') }}",
                 "meal-plan-container",
-                "generate-meal-plan"
+                "generate-meal-plan",
+                "override-existing"
             );
         </script>
         {% endblock %}

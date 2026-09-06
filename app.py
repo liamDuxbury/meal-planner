@@ -14,6 +14,4 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 db = SQLAlchemy(app)
 
-from meal_planner import routes  # noqa: F401, E402
-
-
+import routes  # noqa: F401, E402

@@ -1,7 +1,7 @@
 """Module for defining routes in the meal planner application."""
 from flask import render_template
 
-from meal_planner.app import app
+from app import app
 from models.meal_planning import Recipe
 
 

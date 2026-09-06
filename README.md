@@ -9,7 +9,6 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-cd meal_planner
 flask run
 ```
 
@@ -31,6 +30,11 @@ flask db upgrade                            # apply pending migrations
 ```
 
 Always review the generated file under `migrations/versions/` before running `upgrade`.
+
+To query the SQLite instance directy:
+```bash
+sqlite3 instance/meal_planner.db "SELECT * FROM recipe_cuisines;"
+```
 
 ## Technology Stack
 

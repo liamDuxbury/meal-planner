@@ -8,8 +8,12 @@ A meal planning application with user authentication, recipe selection, and diet
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-
 flask run
+```
+
+To run with hotreloading, run:
+```bash
+flask  --debug run 
 ```
 
 The app creates its SQLite database automatically on first run, at `instance/meal_planner.db`.

@@ -7,6 +7,13 @@
 <title>{% block title %}{% endblock %}</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <section class="content">
+  <nav>
+    <ul>
+      <li><a href="{{ url_for('index') }}">Home</a></li>
+      <li><a href="{{ url_for('recipes') }}">Recipes</a></li>
+      <li><a href="{{ url_for('meal_plan') }}">Meal Plan</a></li>
+    </ul>
+  </nav>
   <header>
     {% block header %}{% endblock %}
   </header>

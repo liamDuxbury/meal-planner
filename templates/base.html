@@ -8,12 +8,12 @@
 </head>
 <body>
     <header class="site-header">
-        <a class="site-name" href="{{ url_for('index') }}">Meal Planner</a>
+        <a class="site-name" href="{{ url_for('main.index') }}">Meal Planner</a>
         <nav>
             <ul>
-                <li><a href="{{ url_for('index') }}" class="{{ 'active' if request.endpoint == 'index' }}">Home</a></li>
-                <li><a href="{{ url_for('recipes') }}" class="{{ 'active' if request.endpoint == 'recipes' }}">Recipes</a></li>
-                <li><a href="{{ url_for('meal_plan') }}" class="{{ 'active' if request.endpoint == 'meal_plan' }}">Meal Plan</a></li>
+                <li><a href="{{ url_for('main.index') }}" class="{{ 'active' if request.endpoint == 'main.index' }}">Home</a></li>
+                <li><a href="{{ url_for('main.recipes') }}" class="{{ 'active' if request.endpoint == 'main.recipes' }}">Recipes</a></li>
+                <li><a href="{{ url_for('main.meal_plan') }}" class="{{ 'active' if request.endpoint == 'main.meal_plan' }}">Meal Plan</a></li>
             </ul>
         </nav>
     </header>

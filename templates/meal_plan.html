@@ -21,7 +21,7 @@
     <script src="{{ url_for('static', filename='js/meal_plan_controller.js') }}"></script>
     <script>
         MealPlanController.init({
-            generateUrl: "{{ url_for('generate_meal_plan') }}",
+            generateUrl: "{{ url_for('main.generate_meal_plan') }}",
             containerId: "meal-plan-container",
             buttonId: "generate-meal-plan",
             overrideCheckboxId: "override-existing",

@@ -63,15 +63,6 @@ sqlite3 instance/meal_planner.db "SELECT * FROM recipe_cuisines;"
 | `dietary_requirements` | Array/String | Vegan, vegetarian, gluten-free, etc. |
 | `ingredient_list`      | Text/JSON    | List of ingredients with quantities  |
 
-### User
-
-| Field                  | Type         | Notes                                  |
-| ---------------------- | ------------ | -------------------------------------- |
-| `id`                   | Integer      | Primary key                            |
-| `name`                 | String       | User's display name                    |
-| `password`             | String       | Encrypted password (bcrypt or similar) |
-| `is_super_admin`       | Boolean      | Admin privileges flag                  |
-| `dietary_requirements` | Array/String | User's dietary restrictions            |
 
 ### Meal Plan
 

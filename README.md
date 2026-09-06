@@ -21,6 +21,17 @@ To populate the recipes table with sample data:
 ./scripts/seed_recipes.sh
 ```
 
+## Migrations
+
+Schema changes are managed with Flask-Migrate (Alembic), run from the `meal_planner/` directory:
+
+```bash
+flask db migrate -m "describe the change"   # autogenerate a revision from model changes
+flask db upgrade                            # apply pending migrations
+```
+
+Always review the generated file under `migrations/versions/` before running `upgrade`.
+
 ## Technology Stack
 
 | Layer | Technology |

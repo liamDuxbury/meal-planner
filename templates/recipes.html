@@ -12,6 +12,11 @@
                     {% for recipe in recipes %}
                         <div class="recipe">
                             <h2>{{recipe.name}}</h2>
+                            <ul>
+                                {% for cuisine in recipe.cuisines %}
+                                    <li>{{cuisine.cuisine.value}}</li>
+                                {% endfor %}
+                            </ul>
                         </div>
                     {% endfor %}
                 {% else %}

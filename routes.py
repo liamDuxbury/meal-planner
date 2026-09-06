@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from flask import jsonify, render_template, request
 
 from app import app, db
-from models.meal_planning import MealPlan, MealPlanRecipe, Recipe
+from models.meal_planning import MealPlan, MealPlanRecipe, Recipe, Cuisine, RecipeCuisine, RecipeCuisine
 
 
 @app.route('/')
@@ -30,13 +30,14 @@ def meal_plan():
         meal_plan = MealPlan()
         print("No meal plan found in the database.")
 
-    return render_template('meal_plan.html', meal_plan=meal_plan)
+    return render_template('meal_plan.html', meal_plan=meal_plan, cuisines=Cuisine)
 
 
 @app.route('/meal-plan/generate', methods=['POST'])
 def generate_meal_plan():
     data = request.get_json()
     override_existing = data.get('overrideExisting', False) if data else False
+    cuisine_filter = data.get('cuisine') or None if data else None
 
     today = datetime.today().date()
     days_until_next_monday = 7 - today.weekday()
@@ -48,12 +49,21 @@ def generate_meal_plan():
             return jsonify(error="Meal plan for today already exists."), 409
         db.session.delete(existing_meal_plan)
 
-    meal_plan = generate_meal_plan_for_date(week_commencing_date)
+    try:
+        meal_plan = generate_meal_plan_for_date(week_commencing_date, cuisine_filter)
+    except ValueError as e:
+        return jsonify(error=str(e)), 400
+
     return render_template('_meal_plan.html', meal_plan=meal_plan)
 
 
-def generate_meal_plan_for_date(target_date):
-    recipes = Recipe.query.all()
+def generate_meal_plan_for_date(target_date, cuisine_filter=None):
+    query = Recipe.query
+    print(f"Filtering by cuisine: {cuisine_filter}")
+    if cuisine_filter:
+        query = query.join(RecipeCuisine).filter(RecipeCuisine.cuisine == Cuisine(cuisine_filter))
+
+    recipes = query.all()
 
     if len(recipes) < 7:
         raise ValueError("Not enough recipes to generate a meal plan.")

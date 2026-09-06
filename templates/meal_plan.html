@@ -6,6 +6,7 @@
     {% block content %}
     <body>
         {% block body %}
+        {% include '_cuisine_filter.html' %}
         <button id="generate-meal-plan">Generate Meal Plan</button>
         <input type="checkbox" id="override-existing" name="override-existing">
         <label for="override-existing">Override existing meal plan</label>
@@ -18,7 +19,8 @@
                 "{{ url_for('generate_meal_plan') }}",
                 "meal-plan-container",
                 "generate-meal-plan",
-                "override-existing"
+                "override-existing",
+                "cuisine-filter"
             );
         </script>
         {% endblock %}

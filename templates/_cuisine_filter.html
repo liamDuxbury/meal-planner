@@ -1,0 +1,7 @@
+<label for="cuisine-filter">Cuisine</label>
+<select id="cuisine-filter" name="cuisine">
+    <option value="">Any cuisine</option>
+    {% for cuisine in cuisines %}
+        <option value="{{ cuisine.value }}">{{ cuisine.value.replace('_', ' ') | title }}</option>
+    {% endfor %}
+</select>

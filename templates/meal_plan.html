@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+<html lang="en">
+    {% block header %}
+        <h1>{% block title %}Meal Plan{% endblock %}</h1>
+    {% endblock %}
+    {% block content %}
+    <body>
+        {% block body %}
+        <button id="generate-meal-plan">Generate Meal Plan</button>
+        <div id="meal-plan-container">
+            {% if meal_plan %}
+                <h2>Meal Plan for {{ meal_plan.date }}</h2>
+                <ul>
+                    {% for recipe in meal_plan.recipes %}
+                        <li>{{ recipe.name }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No meal plan generated yet.</p>
+            {% endif %}
+        </div>
+        <script>
+            const generateMealPlanUrl = "{{ url_for('generate_meal_plan') }}";
+
+            document.getElementById('generate-meal-plan').addEventListener('click', function() {
+                fetch(generateMealPlanUrl, { method: 'POST' })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            const container = document.getElementById('meal-plan-container');
+                            container.innerHTML = `<h2>Meal Plan for ${data.name}</h2><ul>${data.recipes.map(r => `<li>Recipe #${r.recipe_id} on ${r.date}</li>`).join('')}</ul>`;
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        </script>
+        {% endblock %}
+    </body>
+    {% endblock %}
+</html>

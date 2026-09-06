@@ -18,14 +18,9 @@ const MealPlanController = {
             },
             body: JSON.stringify({ overrideExisting, cuisines }),
         })
-            .then(response => {
-                if (!response.ok) {
-                    return response.text().then(text => { throw new Error(text); });
-                }
-                return response.text();
-            })
+            .then(response => response.text())
             .then(html => this.render(html))
-            .catch(error => alert(error.message));
+            .catch(() => this.render('<p class="error">Could not reach the server. Check it is running and try again.</p>'));
     },
 
     render(html) {

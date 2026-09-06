@@ -2,18 +2,20 @@
 import random
 from datetime import datetime, timedelta
 
-from flask import render_template, request
+from flask import Blueprint, render_template, request
 
-from app import app, db
+from app import db
 from models.meal_planning import MealPlan, MealPlanRecipe, Recipe, Cuisine, RecipeCuisine
 
+meal_plan_blueprint = Blueprint('main', __name__)
 
-@app.route('/')
+
+@meal_plan_blueprint.route('/')
 def index():
     return render_template('index.html')
 
 
-@app.route('/recipes', methods=['GET'])
+@meal_plan_blueprint.route('/recipes', methods=['GET'])
 def recipes():
     recipes = Recipe.query.all()
     if not recipes:
@@ -23,7 +25,7 @@ def recipes():
     return render_template('recipes.html', recipes=recipes)
 
 
-@app.route('/meal-plan', methods=['GET'])
+@meal_plan_blueprint.route('/meal-plan', methods=['GET'])
 def meal_plan():
     week_commencing_date = get_week_commencing_date()
     meal_plan = get_meal_plan_for_date(week_commencing_date)
@@ -34,7 +36,7 @@ def meal_plan():
     return render_template('meal_plan.html', meal_plan=meal_plan, cuisines=Cuisine)
 
 
-@app.route('/meal-plan/generate', methods=['POST'])
+@meal_plan_blueprint.route('/meal-plan/generate', methods=['POST'])
 def generate_meal_plan():
     data = request.get_json()
     override_existing = data.get('overrideExisting', False) if data else False

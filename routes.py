@@ -25,7 +25,8 @@ def recipes():
 
 @app.route('/meal-plan', methods=['GET'])
 def meal_plan():
-    meal_plan = MealPlan.query.first()
+    week_commencing_date = get_week_commencing_date()
+    meal_plan = get_meal_plan_for_date(week_commencing_date)
     if not meal_plan:
         meal_plan = MealPlan()
         print("No meal plan found in the database.")
@@ -39,11 +40,8 @@ def generate_meal_plan():
     override_existing = data.get('overrideExisting', False) if data else False
     cuisine_filters = (data.get('cuisines') or []) if data else []
 
-    today = datetime.today().date()
-    days_until_next_monday = 7 - today.weekday()
-    week_commencing_date = today + timedelta(days=days_until_next_monday)
-
-    existing_meal_plan = MealPlan.query.filter(MealPlan.name == f"Meal plan {week_commencing_date.isoformat()}").first()
+    week_commencing_date = get_week_commencing_date()
+    existing_meal_plan = get_meal_plan_for_date(week_commencing_date)
 
     if existing_meal_plan and not override_existing:
         return render_template(
@@ -81,4 +79,15 @@ def generate_meal_plan_for_date(target_date, cuisine_filters=None, replacing=Non
     db.session.add(meal_plan)
     db.session.commit()
 
+    return meal_plan
+
+
+def get_week_commencing_date():
+    today = datetime.today().date()
+    days_until_next_monday = 7 - today.weekday()
+    return today + timedelta(days=days_until_next_monday)
+
+
+def get_meal_plan_for_date(target_date):
+    meal_plan = MealPlan.query.filter(MealPlan.name == f"Meal plan {target_date.isoformat()}").first()
     return meal_plan

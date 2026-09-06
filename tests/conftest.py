@@ -1,7 +1,7 @@
 import pytest
 
 from app import create_app, db
-from models.meal_planning import Cuisine, Recipe, RecipeCuisine
+from models.meal_planning import Recipe, RecipeCuisine
 
 
 @pytest.fixture

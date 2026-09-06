@@ -32,3 +32,17 @@ class RecipeCuisine(db.Model):
     __tablename__ = 'recipe_cuisines'
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipes.id'), primary_key=True)
     cuisine = db.Column(db.Enum(Cuisine), primary_key=True)
+
+
+class MealPlan(db.Model):
+    __tablename__ = 'meal_plans'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    recipes = db.relationship('MealPlanRecipe', backref='meal_plan', cascade='all, delete-orphan', lazy=True)
+
+
+class MealPlanRecipe(db.Model):
+    __tablename__ = 'meal_plan_recipes'
+    meal_plan_id = db.Column(db.Integer, db.ForeignKey('meal_plans.id'), primary_key=True)
+    recipe_id = db.Column(db.Integer, db.ForeignKey('recipes.id'), primary_key=True)
+    date = db.Column(db.Date, nullable=False)

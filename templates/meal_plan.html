@@ -8,32 +8,23 @@
         {% block body %}
         <button id="generate-meal-plan">Generate Meal Plan</button>
         <div id="meal-plan-container">
-            {% if meal_plan %}
-                <h2>Meal Plan for {{ meal_plan.date }}</h2>
-                <ul>
-                    {% for recipe in meal_plan.recipes %}
-                        <li>{{ recipe.name }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No meal plan generated yet.</p>
-            {% endif %}
+            {% include '_meal_plan.html' %}
         </div>
         <script>
             const generateMealPlanUrl = "{{ url_for('generate_meal_plan') }}";
 
             document.getElementById('generate-meal-plan').addEventListener('click', function() {
                 fetch(generateMealPlanUrl, { method: 'POST' })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            alert(data.error);
-                        } else {
-                            const container = document.getElementById('meal-plan-container');
-                            container.innerHTML = `<h2>Meal Plan for ${data.name}</h2><ul>${data.recipes.map(r => `<li>${r.name} — ${r.date}</li>`).join('')}</ul>`;
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.text().then(text => { throw new Error(text); });
                         }
+                        return response.text();
                     })
-                    .catch(error => console.error('Error:', error));
+                    .then(html => {
+                        document.getElementById('meal-plan-container').innerHTML = html;
+                    })
+                    .catch(error => alert(error.message));
             });
         </script>
         {% endblock %}

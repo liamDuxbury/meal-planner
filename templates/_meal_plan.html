@@ -1,0 +1,10 @@
+{% if meal_plan %}
+    <h2>Meal Plan for {{ meal_plan.name }}</h2>
+    <ul>
+        {% for meal_plan_recipe in meal_plan.recipes %}
+            <li>{{ meal_plan_recipe.recipe.name }} — {{ meal_plan_recipe.date.isoformat() }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No meal plan generated yet.</p>
+{% endif %}

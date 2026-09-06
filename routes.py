@@ -43,7 +43,9 @@ def generate_meal_plan():
     # Create a new meal plan with the selected recipes
     today = date.today()
     meal_plan = MealPlan(name=f"Meal plan {today.isoformat()}")
-    meal_plan.recipes = [MealPlanRecipe(recipe_id=recipe.id, date=today + timedelta(days=i)) for i, recipe in enumerate(selected)]
+    for i, recipe in enumerate(selected):
+        meal_plan_recipe = MealPlanRecipe(recipe_id=recipe.id, date=today + timedelta(days=i))
+        meal_plan.recipes.append(meal_plan_recipe)
     # Save the meal plan to the database
     db.session.add(meal_plan)
     db.session.commit()
@@ -52,7 +54,7 @@ def generate_meal_plan():
         id=meal_plan.id,
         name=meal_plan.name,
         recipes=[
-            {"date": mpr.date.isoformat(), "recipe_id": mpr.recipe_id}
+            {"date": mpr.date.isoformat(), "name": mpr.recipe.name}
             for mpr in meal_plan.recipes
         ],
     ), 201

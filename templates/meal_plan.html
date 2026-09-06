@@ -30,7 +30,7 @@
                             alert(data.error);
                         } else {
                             const container = document.getElementById('meal-plan-container');
-                            container.innerHTML = `<h2>Meal Plan for ${data.name}</h2><ul>${data.recipes.map(r => `<li>Recipe #${r.recipe_id} on ${r.date}</li>`).join('')}</ul>`;
+                            container.innerHTML = `<h2>Meal Plan for ${data.name}</h2><ul>${data.recipes.map(r => `<li>${r.name} — ${r.date}</li>`).join('')}</ul>`;
                         }
                     })
                     .catch(error => console.error('Error:', error));

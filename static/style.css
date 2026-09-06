@@ -108,26 +108,48 @@ body {
 
 .field label { font-weight: 600; }
 
-select[multiple] {
-    min-width: 240px;
-    padding: 0.4rem;
+.cuisine-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+    max-width: 460px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    transition: opacity 0.15s ease;
+}
+
+.cuisine-options:disabled { opacity: 0.4; }
+
+.chip input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.chip span {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
     border: 1px solid var(--line);
-    border-radius: 10px;
     background: var(--surface);
-    color: var(--ink);
-    font: inherit;
-    text-align: center;
+    font-size: 0.82rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-select[multiple] option {
-    padding: 0.3rem;
-    border-radius: 6px;
+.chip input:checked + span {
+    background: var(--green);
+    border-color: var(--green-deep);
+    font-weight: 600;
 }
 
-select[multiple] option:checked {
-    background: var(--green) linear-gradient(var(--green), var(--green));
-    color: var(--ink);
-}
+.chip input:focus-visible + span { outline: 2px solid var(--blue-deep); outline-offset: 2px; }
+
+.cuisine-options:disabled .chip span { cursor: not-allowed; }
 
 small { color: var(--ink-soft); font-size: 0.8rem; }
 

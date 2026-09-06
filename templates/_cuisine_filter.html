@@ -1,9 +1,15 @@
 <div class="field">
-    <label for="cuisine-filter">Cuisine</label>
-    <select id="cuisine-filter" name="cuisine" multiple size="6">
+    <label class="checkbox">
+        <input type="checkbox" id="cuisine-filter-toggle">
+        Filter by cuisine
+    </label>
+
+    <fieldset id="cuisine-filter" class="cuisine-options" disabled>
         {% for cuisine in cuisines %}
-            <option value="{{ cuisine.value }}">{{ cuisine.value.replace('_', ' ') | title }}</option>
+            <label class="chip">
+                <input type="checkbox" name="cuisine" value="{{ cuisine.value }}">
+                <span>{{ cuisine.value.replace('_', ' ') | title }}</span>
+            </label>
         {% endfor %}
-    </select>
-    <small>Hold Cmd/Ctrl to select multiple. Leave none selected for any cuisine.</small>
+    </fieldset>
 </div>

@@ -20,12 +20,13 @@
 
     <script src="{{ url_for('static', filename='js/meal_plan_controller.js') }}"></script>
     <script>
-        MealPlanController.init(
-            "{{ url_for('generate_meal_plan') }}",
-            "meal-plan-container",
-            "generate-meal-plan",
-            "override-existing",
-            "cuisine-filter"
-        );
+        MealPlanController.init({
+            generateUrl: "{{ url_for('generate_meal_plan') }}",
+            containerId: "meal-plan-container",
+            buttonId: "generate-meal-plan",
+            overrideCheckboxId: "override-existing",
+            cuisineToggleId: "cuisine-filter-toggle",
+            cuisineOptionsId: "cuisine-filter",
+        });
     </script>
 {% endblock %}

@@ -37,7 +37,7 @@ def meal_plan():
 def generate_meal_plan():
     data = request.get_json()
     override_existing = data.get('overrideExisting', False) if data else False
-    cuisine_filter = data.get('cuisine') or None if data else None
+    cuisine_filters = (data.get('cuisines') or []) if data else []
 
     today = datetime.today().date()
     days_until_next_monday = 7 - today.weekday()
@@ -50,18 +50,19 @@ def generate_meal_plan():
         db.session.delete(existing_meal_plan)
 
     try:
-        meal_plan = generate_meal_plan_for_date(week_commencing_date, cuisine_filter)
+        meal_plan = generate_meal_plan_for_date(week_commencing_date, cuisine_filters)
     except ValueError as e:
         return jsonify(error=str(e)), 400
 
     return render_template('_meal_plan.html', meal_plan=meal_plan)
 
 
-def generate_meal_plan_for_date(target_date, cuisine_filter=None):
+def generate_meal_plan_for_date(target_date, cuisine_filters=None):
     query = Recipe.query
-    print(f"Filtering by cuisine: {cuisine_filter}")
-    if cuisine_filter:
-        query = query.join(RecipeCuisine).filter(RecipeCuisine.cuisine == Cuisine(cuisine_filter))
+    print(f"Generating meal plan for {target_date} with cuisine filters: {cuisine_filters}")
+    if cuisine_filters:
+        cuisine_enums = [Cuisine(value) for value in cuisine_filters]
+        query = query.join(RecipeCuisine).filter(RecipeCuisine.cuisine.in_(cuisine_enums)).distinct()
 
     recipes = query.all()
 

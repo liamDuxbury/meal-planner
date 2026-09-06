@@ -9,14 +9,14 @@ const MealPlanController = {
 
     generate() {
         const overrideExisting = this.overrideExistingCheckbox.checked;
-        const cuisine = this.cuisineFilter.value;
+        const cuisines = Array.from(this.cuisineFilter.selectedOptions).map(option => option.value);
 
         fetch(this.generateUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ overrideExisting, cuisine }),
+            body: JSON.stringify({ overrideExisting, cuisines }),
         })
             .then(response => {
                 if (!response.ok) {

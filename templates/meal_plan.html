@@ -1,29 +1,31 @@
 {% extends 'base.html' %}
-<html lang="en">
-    {% block header %}
-        <h1>{% block title %}Meal Plan{% endblock %}</h1>
-    {% endblock %}
-    {% block content %}
-    <body>
-        {% block body %}
+
+{% block title %}Meal Plan{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">Meal Plan</h1>
+
+    <section class="panel controls">
         {% include '_cuisine_filter.html' %}
-        <button id="generate-meal-plan">Generate Meal Plan</button>
-        <input type="checkbox" id="override-existing" name="override-existing">
-        <label for="override-existing">Override existing meal plan</label>
-        <div id="meal-plan-container">
-            {% include '_meal_plan.html' %}
-        </div>
-        <script src="{{ url_for('static', filename='js/meal_plan_controller.js') }}"></script>
-        <script>
-            MealPlanController.init(
-                "{{ url_for('generate_meal_plan') }}",
-                "meal-plan-container",
-                "generate-meal-plan",
-                "override-existing",
-                "cuisine-filter"
-            );
-        </script>
-        {% endblock %}
-    </body>
-    {% endblock %}
-</html>
+        <label class="checkbox">
+            <input type="checkbox" id="override-existing" name="override-existing">
+            Override existing meal plan
+        </label>
+        <button id="generate-meal-plan" class="btn">Generate Meal Plan</button>
+    </section>
+
+    <div id="meal-plan-container" class="card">
+        {% include '_meal_plan.html' %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/meal_plan_controller.js') }}"></script>
+    <script>
+        MealPlanController.init(
+            "{{ url_for('generate_meal_plan') }}",
+            "meal-plan-container",
+            "generate-meal-plan",
+            "override-existing",
+            "cuisine-filter"
+        );
+    </script>
+{% endblock %}

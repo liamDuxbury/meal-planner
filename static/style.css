@@ -1,0 +1,219 @@
+:root {
+    --pink:        #f9d5e5;
+    --pink-deep:   #e28fb4;
+    --green:       #d3eeda;
+    --green-deep:  #85c894;
+    --blue:        #d0e4f5;
+    --blue-deep:   #86b8dd;
+
+    --ink:         #4c4a58;
+    --ink-soft:    #85818f;
+    --surface:     #ffffff;
+    --line:        #ece7ef;
+
+    --radius:      16px;
+    --shadow:      0 4px 16px rgba(122, 110, 130, 0.10);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding-bottom: 4rem;
+    font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    text-align: center;
+    background: linear-gradient(170deg, var(--pink) 0%, var(--blue) 50%, var(--green) 100%);
+    background-attachment: fixed;
+}
+
+/* ---------- header / nav ---------- */
+
+.site-header { padding: 2.5rem 1rem 1.5rem; }
+
+.site-name {
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.site-header nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.site-header nav a {
+    display: block;
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.55);
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.site-header nav a:hover { background: rgba(255, 255, 255, 0.9); }
+
+.site-header nav a.active {
+    background: var(--surface);
+    color: var(--pink-deep);
+}
+
+/* ---------- layout ---------- */
+
+.content {
+    width: min(760px, 92vw);
+    margin: 0 auto;
+}
+
+.page-title {
+    margin: 0 0 1.5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.card, .panel {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+}
+
+.panel { margin-bottom: 1.5rem; }
+
+/* ---------- controls ---------- */
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.field label { font-weight: 600; }
+
+select[multiple] {
+    min-width: 240px;
+    padding: 0.4rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    text-align: center;
+}
+
+select[multiple] option {
+    padding: 0.3rem;
+    border-radius: 6px;
+}
+
+select[multiple] option:checked {
+    background: var(--green) linear-gradient(var(--green), var(--green));
+    color: var(--ink);
+}
+
+small { color: var(--ink-soft); font-size: 0.8rem; }
+
+.checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.btn {
+    padding: 0.7rem 1.6rem;
+    border: none;
+    border-radius: 999px;
+    background: var(--pink-deep);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform 0.12s ease, background 0.15s ease;
+}
+
+.btn:hover { background: #d97fa8; transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+/* ---------- recipe cards ---------- */
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.card h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.1rem;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.tag {
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: var(--blue);
+    color: var(--ink);
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+/* ---------- meal plan ---------- */
+
+.plan-title { margin: 0 0 1rem; font-size: 1.2rem; }
+
+.plan {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.plan-day {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1.1rem;
+    border-radius: 12px;
+    background: var(--green);
+    text-align: left;
+}
+
+.plan-day:nth-child(even) { background: var(--blue); }
+
+.day-date {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+}
+
+.day-recipe { font-weight: 500; }
+
+.empty { color: var(--ink-soft); }

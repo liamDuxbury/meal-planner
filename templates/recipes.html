@@ -1,28 +1,23 @@
 {% extends 'base.html' %}
-<html lang="en">
-    {% block header %}
-        <h1>{% block title %}Recipes{% endblock %}</h1>
-    {% endblock %}
-    {% block content %}
-    <body>
-        {% block body %} 
-            <div>
-                {% if recipes %}
-                    {% for recipe in recipes %}
-                        <div class="recipe">
-                            <h2>{{recipe.name}}</h2>
-                            <ul>
-                                {% for cuisine in recipe.cuisines %}
-                                    <li>{{cuisine.cuisine.value}}</li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <p>No recipes found.</p>
-                {% endif %}
-            </div>
-        {% endblock %}
-    </body>
-    {% endblock %}
-</html>
+
+{% block title %}Recipes{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">Recipes</h1>
+    {% if recipes %}
+        <div class="card-grid">
+            {% for recipe in recipes %}
+                <article class="card">
+                    <h2>{{ recipe.name }}</h2>
+                    <div class="tags">
+                        {% for recipe_cuisine in recipe.cuisines %}
+                            <span class="tag">{{ recipe_cuisine.cuisine.value.replace('_', ' ') | title }}</span>
+                        {% endfor %}
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="empty">No recipes found.</p>
+    {% endif %}
+{% endblock %}

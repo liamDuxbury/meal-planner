@@ -1,21 +1,24 @@
 <!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meal Planner - Recipes</title>
+    <title>{% block title %}{% endblock %} · Meal Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<title>{% block title %}{% endblock %}</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<section class="content">
-  <nav>
-    <ul>
-      <li><a href="{{ url_for('index') }}">Home</a></li>
-      <li><a href="{{ url_for('recipes') }}">Recipes</a></li>
-      <li><a href="{{ url_for('meal_plan') }}">Meal Plan</a></li>
-    </ul>
-  </nav>
-  <header>
-    {% block header %}{% endblock %}
-  </header>
-  {% block content %}{% endblock %}
-</section>
+<body>
+    <header class="site-header">
+        <a class="site-name" href="{{ url_for('index') }}">Meal Planner</a>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}" class="{{ 'active' if request.endpoint == 'index' }}">Home</a></li>
+                <li><a href="{{ url_for('recipes') }}" class="{{ 'active' if request.endpoint == 'recipes' }}">Recipes</a></li>
+                <li><a href="{{ url_for('meal_plan') }}" class="{{ 'active' if request.endpoint == 'meal_plan' }}">Meal Plan</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
